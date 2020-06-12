@@ -25,8 +25,10 @@ socketClient.on('status', async function(fn) {
 
 socketClient.on('stop', async function(data) {
     await exec(`sudo docker stop ${data.containerID}`);
+    console.log(`a container ${data.containerID} is stopped`);
 });
 
 socketClient.on('stopAll', async function(data) {
     await exec('sudo docker stop $(sudo docker ps -a -q)');
+    console.log('all containers are stopped');
 });
