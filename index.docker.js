@@ -1,12 +1,10 @@
 require('dotenv').config({ path: '.robot.env'});   
 
-
 const socketIO = require("socket.io-client");
 const socketClient = socketIO.connect(process.env.SERVER_URL);
+//const socketClient = socketIO.connect('http://35.222.226.8:8000');
 const Mutex = require('async-mutex').Mutex;
 const file_mutex = new Mutex();
-
-//const socketClient = socketIO.connect('http://35.222.226.8:8000');
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -15,7 +13,7 @@ const writeFile = util.promisify(require('fs').writeFile);
 
 socketClient.on('health_check', () => {
     console.log('receive healthcheck message');
-    socketClient.emit('health_check', `${process.env.NAME}`);    
+    socketClient.emit('health_check', {'name':`${process.env.NAME}`, 'base':'docker'});    
 });
 
 socketClient.on('run', async function(data) {
@@ -54,7 +52,7 @@ socketClient.on('stop', async function(data) {
     console.log(`a container ${data.containerID} is stopped`);
 });
 
-socketClient.on('stopAll', async function(data) {
+socketClient.on('stopAll', async function() {
     await exec('sudo docker stop $(sudo docker ps -a -q)');
     console.log('all containers are stopped');
 });

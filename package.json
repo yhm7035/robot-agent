@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:docker": "node index.docker.js"
+    "start:docker": "node index.docker.js",
+    "start:kube": "node index.kube.js"
   },
   "keywords": [],
   "author": "",
