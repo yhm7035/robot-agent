@@ -6,7 +6,7 @@ const socketClient = socketIO.connect(process.env.SERVER_URL);
 const Mutex = require('async-mutex').Mutex;
 const file_mutex = new Mutex();
 
-//const socketClient = socketIO.connect('http://127.0.0.1:8000');
+//const socketClient = socketIO.connect('http://35.222.226.8:8000');
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
